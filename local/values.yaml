@@ -1,0 +1,34 @@
+name: spring
+namespace: default
+replicas: 1
+springContainer:
+  image: ghcr.io/jaewonleekor/spring-ping:0.0.2
+  imagePullPolicy: IfNotPresent
+  profile: default
+config:
+  enable: false
+  configData: |
+    server:
+      port: 8080
+secret:
+  enable: false
+  secretData: |
+    secret: this-is-secret
+service:
+  type: NodePort
+  port: 8080
+rdb:
+  enable: false
+  name: rdb-external-service
+  ip: ""
+  port: ""
+nosql:
+  enable: false
+  name: nosql-external-service
+  ip: ""
+  port: ""
+kafka:
+  enable: false
+  name: kafka-external-service
+  ip: ""
+  port: ""

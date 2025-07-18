@@ -1,0 +1,17 @@
+applications:
+  nginx-prod:
+    namespace: default
+    project: default
+    sources:
+    - chart: spring-chart
+      repoURL: https://lgcns-final-lgcms.github.io/infra-helm-packages
+      targetRevision: 0.0.2
+      helm:
+        valueFiles:
+          - $values/local/values.yaml
+    - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
+      targetRevision: LB-75/springHelmOnArgo
+      ref: values
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: default
