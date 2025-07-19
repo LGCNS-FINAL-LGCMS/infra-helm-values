@@ -1,0 +1,10 @@
+config:
+  enable: true
+  configData: |
+    spring:
+      cloud:
+        openfeign:
+          client:
+            config:
+              RemoteMemberService:
+                url: http://spring-member:8080
