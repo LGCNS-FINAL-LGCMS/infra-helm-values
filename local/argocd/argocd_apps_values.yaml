@@ -12,7 +12,7 @@ applications:
             - $values/local/spring-auth/secret.yaml
             - $values/local/spring-auth/values.yaml
       - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
-        targetRevision: LB-75/springHelmOnArgo
+        targetRevision: main
         ref: values
     destination:
       server: https://kubernetes.default.svc

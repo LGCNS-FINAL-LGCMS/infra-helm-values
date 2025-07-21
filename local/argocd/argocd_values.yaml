@@ -8,7 +8,7 @@ crds:
 ## Argo Configs
 configs:
   secret:
-#    argocdServerAdminPassword: "" # htpasswd -bnBC 10 "" '' | tr -d ':\n' #CUSTOMED
+    #    argocdServerAdminPassword: "" # htpasswd -bnBC 10 "" '' | tr -d ':\n' #CUSTOMED
     argocdServerAdminPassword: "$2y$10$c6LkbQQIXnWPdR0gnt.1f.lHAt..I497YOiECQcn.w9L7D4mSp.tu" #CUSTOMED
   service:
     # -- Server service type
