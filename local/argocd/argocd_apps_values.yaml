@@ -1,0 +1,25 @@
+applications:
+  spring-auth:
+    namespace: default
+    project: default
+    sources:
+      - chart: spring-chart
+        repoURL: https://lgcns-final-lgcms.github.io/infra-helm-packages
+        targetRevision: 0.0.3
+        helm:
+          valueFiles:
+            - $values/local/spring-auth/configmap.yaml
+            - $values/local/spring-auth/secret.yaml
+            - $values/local/spring-auth/values.yaml
+      - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
+        targetRevision: main
+        ref: values
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: default
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
