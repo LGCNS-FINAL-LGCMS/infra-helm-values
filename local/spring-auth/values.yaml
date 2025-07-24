@@ -1,5 +1,5 @@
 name: spring-auth
-namespace: default
+namespace: backend
 replicas: 1
 springContainer:
   image: ghcr.io/lgcns-final-lgcms/auth

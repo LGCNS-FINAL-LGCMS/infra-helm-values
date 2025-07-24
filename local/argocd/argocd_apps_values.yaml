@@ -1,6 +1,6 @@
 applications:
   spring-auth:
-    namespace: default
+    namespace: argocd
     project: default
     sources:
       - chart: spring-chart
@@ -16,7 +16,7 @@ applications:
         ref: values
     destination:
       server: https://kubernetes.default.svc
-      namespace: default
+      namespace: argocd
     syncPolicy:
       automated:
         prune: true
