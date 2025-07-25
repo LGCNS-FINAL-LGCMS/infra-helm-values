@@ -5,6 +5,10 @@ crds:
   annotations: {}
   additionalLabels: {}
 
+server:
+  service:
+    type: NodePort
+
 ## Argo Configs
 configs:
   secret:
