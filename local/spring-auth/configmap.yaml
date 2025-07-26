@@ -7,7 +7,7 @@ config:
           client:
             config:
               RemoteMemberService:
-                url: http://spring-member:8080
+                url: http://backend-member:8080
       data:
         redis:
           host: valkey-auth-external-service
