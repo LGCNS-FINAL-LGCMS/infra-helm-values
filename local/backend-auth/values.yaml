@@ -1,0 +1,11 @@
+name: backend-auth
+namespace: backend
+replicas: 1
+springContainer:
+  image: ghcr.io/lgcns-final-lgcms/auth
+  version: 0.0.2
+  profile: dev
+  imagePullPolicy: Always
+service:
+  type: NodePort
+  port: 8080

@@ -1,5 +1,5 @@
 applications:
-  spring-auth:
+  backend-auth:
     namespace: argocd
     project: default
     sources:
@@ -8,9 +8,9 @@ applications:
         targetRevision: 0.0.4
         helm:
           valueFiles:
-            - $values/local/spring-auth/configmap.yaml
-            - $values/local/spring-auth/secret.yaml
-            - $values/local/spring-auth/values.yaml
+            - $values/local/backend-auth/configmap.yaml
+            - $values/local/backend-auth/secret.yaml
+            - $values/local/backend-auth/values.yaml
           valuesObject:
             externalService:
               - name: "valkey-auth-external-service"
