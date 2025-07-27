@@ -1,0 +1,31 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: lgcms-virtualservice
+  namespace: istio-system
+spec:
+  gateways:
+    - lgcms-gateway
+  hosts:
+    - "*"
+  http:
+    - match:
+        - uri:
+            prefix: /auth/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: backend-auth.backend.svc.cluster.local
+            port:
+              number: 8080
+    - match:
+        - uri:
+            prefix: /member/
+      rewrite:
+        uri: /
+      route:
+        - destination:
+            host: backend-member.backend.svc.cluster.local
+            port:
+              number: 8080
