@@ -1,0 +1,23 @@
+applications:
+  istiod:
+    namespace: argocd
+    project: default
+    sources:
+      - chart: istiod
+        repoURL: https://istio-release.storage.googleapis.com/charts
+        targetRevision: 1.26.2
+        helm:
+          valueFiles:
+            - $values/local/istiod/values.yaml
+      - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
+        targetRevision: main
+        ref: values
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: istio-system
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
