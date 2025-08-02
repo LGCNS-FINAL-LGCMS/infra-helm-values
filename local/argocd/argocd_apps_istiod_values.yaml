@@ -21,3 +21,19 @@ applications:
         selfHeal: true
       syncOptions:
         - CreateNamespace=true
+  istio-crds:
+    namespace: argocd
+    project: default
+    sources:
+      - chart: base
+        repoURL: https://istio-release.storage.googleapis.com/charts
+        targetRevision: 1.26.2
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: istio-system
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
