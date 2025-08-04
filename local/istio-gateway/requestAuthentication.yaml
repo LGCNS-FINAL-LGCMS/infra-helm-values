@@ -1,0 +1,46 @@
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: jwt-auth
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+       istio: ingressgateway
+  jwtRules:
+    - issuer: "lgcms"
+      # echo -n '서버의 시크릿 키' | base64
+      jwks: >-
+        {"keys":[{"kty":"oct", "k":"ZGV2aGVsbG93b3JsZHNob3VsZHNlY3JldGtleXNpemVtb3JlYmlnZ2VyP21vcmVtb3JlbW9yZW1vcmViaWdnZXJ3aGF0c2dvaW5nb25pbnRoaXNwbGFjZWFjY2Vzcw==","alg":"HS512"}]}
+      outputClaimToHeaders:
+        - header: "X-USER-ID"
+          claim: "sub"
+        - header: "X-JTI"
+          claim: "jti"
+      fromHeaders:
+        - name: Authorization
+          prefix: "Bearer "
+      forwardOriginalTokens: false
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: path-based-auth-policy
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  action: ALLOW # 조건에 맞는 요청을 허용
+  rules:
+    - to:
+        - operation:
+            paths: ["/api/auth/sign-in/google", "/api/auth/refresh/token"]
+            methods: ["POST"]
+
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+      to:
+        - operation:
+            notPaths: ["/api/auth/*"]
