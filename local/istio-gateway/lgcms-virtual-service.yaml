@@ -16,6 +16,8 @@ spec:
         status: 403
     - match:
         - uri:
+            exact: "/api/auth"
+        - uri:
             prefix: "/api/auth/"
       route:
         - destination:
@@ -23,6 +25,8 @@ spec:
             port:
               number: 8080
     - match:
+        - uri:
+            exact: "/api/core"
         - uri:
             prefix: "/api/core/"
       route:
@@ -32,6 +36,8 @@ spec:
               number: 8080
     - match:
         - uri:
+            exact: "/api/guide"
+        - uri:
             prefix: "/api/guide/"
       route:
         - destination:
@@ -40,6 +46,8 @@ spec:
               number: 8080
     - match:
         - uri:
+            exact: "/api/lecture"
+        - uri:
             prefix: "/api/lecture/"
       route:
         - destination:
@@ -47,6 +55,8 @@ spec:
             port:
               number: 8080
     - match:
+        - uri:
+            exact: "/api/member"
         - uri:
             prefix: "/api/member/"
       route:
