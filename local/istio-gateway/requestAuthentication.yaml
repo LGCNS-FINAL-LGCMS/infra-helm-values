@@ -43,4 +43,4 @@ spec:
             requestPrincipals: ["*"]
       to:
         - operation:
-            notPaths: ["/api/auth/*"]
+            notPaths: ["/api/auth/sign-in/google", "/api/auth/refresh/token"]
