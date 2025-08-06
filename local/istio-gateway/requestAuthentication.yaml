@@ -35,6 +35,9 @@ spec:
   rules:
     - to:
         - operation:
+            methods: ["OPTIONS"]
+    - to:
+        - operation:
             paths: ["/api/auth/sign-in/google", "/api/auth/refresh/token"]
             methods: ["POST"]
 

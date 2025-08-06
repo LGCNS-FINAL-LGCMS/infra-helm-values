@@ -9,12 +9,48 @@ spec:
   hosts:
     - "*"
   http:
-    - match:
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
       - uri:
           regex: "^/api/.*/internal/.*"
       directResponse:
         status: 403
-    - match:
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
         - uri:
             exact: "/api/auth"
         - uri:
@@ -24,7 +60,25 @@ spec:
             host: backend-auth.backend.svc.cluster.local
             port:
               number: 8080
-    - match:
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
         - uri:
             exact: "/api/core"
         - uri:
@@ -34,7 +88,25 @@ spec:
             host: backend-core.backend.svc.cluster.local
             port:
               number: 8080
-    - match:
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
         - uri:
             exact: "/api/guide"
         - uri:
@@ -44,7 +116,25 @@ spec:
             host: backend-guide.backend.svc.cluster.local
             port:
               number: 8080
-    - match:
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
         - uri:
             exact: "/api/lecture"
         - uri:
@@ -54,7 +144,25 @@ spec:
             host: backend-lecture.backend.svc.cluster.local
             port:
               number: 8080
-    - match:
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
         - uri:
             exact: "/api/member"
         - uri:
