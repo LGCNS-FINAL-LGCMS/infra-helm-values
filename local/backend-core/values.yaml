@@ -9,6 +9,3 @@ springContainer:
 service:
   type: NodePort
   port: 8080
-secret:
-  enable: true
-  secretData: ""

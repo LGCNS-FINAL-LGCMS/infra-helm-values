@@ -6,7 +6,6 @@ config:
     spring:
       application:
         name: backend-core
-    spring:
       datasource:
         url: jdbc:postgresql://postgres-core-external-service:5432/core?serverTimezone=UTC&useSSL=true&autoReconnect=true&useUnicode=true&characterEncoding=utf-8
         driver-class-name: org.postgresql.Driver
