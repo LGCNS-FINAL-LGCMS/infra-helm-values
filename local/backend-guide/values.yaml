@@ -1,0 +1,11 @@
+name: backend-guide
+namespace: backend
+replicas: 1
+springContainer:
+  image: ghcr.io/lgcns-final-lgcms/backend-guide-bot
+  version: 0.1
+  profile: dev
+  imagePullPolicy: Always
+service:
+  type: NodePort
+  port: 8080
