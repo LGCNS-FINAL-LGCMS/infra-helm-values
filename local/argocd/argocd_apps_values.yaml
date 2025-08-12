@@ -48,6 +48,11 @@ applications:
                 externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
                 externalPort: 38121
                 type: ClusterIP
+              - name: "valkey-member-external-service"
+                internalPort: 6379
+                externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
+                externalPort: 38122
+                type: ClusterIP
       - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
         targetRevision: main
         ref: values
