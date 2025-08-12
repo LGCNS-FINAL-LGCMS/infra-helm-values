@@ -38,12 +38,36 @@ spec:
             methods: ["OPTIONS"]
     - to:
         - operation:
-            paths: ["/api/auth/sign-in/google", "/api/auth/refresh/token"]
-            methods: ["POST"]
-
+            paths: ["/api/*"]
+            notPaths: ["/api/member/*", "/api/lecturer/*", "/api/admin/*"]
+            methods: ["*"]
     - from:
         - source:
             requestPrincipals: ["*"]
       to:
         - operation:
-            notPaths: ["/api/auth/sign-in/google", "/api/auth/refresh/token"]
+            paths: ["/api/member/*"]
+            methods: ["*"]
+      when:
+      - key: "request.auth.claims[role]"
+        values: ["STUDENT", "LECTURER", "ADMIN"]
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+      to:
+        - operation:
+            paths: ["/api/lecturer/*"]
+            methods: ["*"]
+      when:
+      - key: "request.auth.claims[role]"
+        values: ["LECTURER", "ADMIN"]
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+      to:
+        - operation:
+            paths: ["/api/admin/*"]
+            methods: ["*"]
+      when:
+      - key: "request.auth.claims[role]"
+        values: ["ADMIN"]
