@@ -39,14 +39,22 @@ spec:
     - to:
         - operation:
             paths: ["/api/*"]
-            notPaths: ["/api/member/*", "/api/lecturer/*", "/api/admin/*"]
+            notPaths:
+            - "/api/member"
+            - "/api/member/*"
+            - "/api/lecturer"
+            - "/api/lecturer/*"
+            - "/api/admin"
+            - "/api/admin/*"
             methods: ["*"]
     - from:
         - source:
             requestPrincipals: ["*"]
       to:
         - operation:
-            paths: ["/api/member/*"]
+            paths:
+            - "/api/member"
+            - "/api/member/*"
             methods: ["*"]
       when:
       - key: "request.auth.claims[role]"
@@ -56,7 +64,9 @@ spec:
             requestPrincipals: ["*"]
       to:
         - operation:
-            paths: ["/api/lecturer/*"]
+            paths:
+            - "/api/lecturer"
+            - "/api/lecturer/*"
             methods: ["*"]
       when:
       - key: "request.auth.claims[role]"
@@ -66,7 +76,9 @@ spec:
             requestPrincipals: ["*"]
       to:
         - operation:
-            paths: ["/api/admin/*"]
+            paths:
+            - "/api/admin"
+            - "/api/admin/*"
             methods: ["*"]
       when:
       - key: "request.auth.claims[role]"
