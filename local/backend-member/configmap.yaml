@@ -11,7 +11,7 @@ config:
         show-sql: false
         database: postgresql
         hibernate:
-          ddl-auto: create
+          ddl-auto: update
         properties:
           hibernate:
             format_sql: true
