@@ -40,8 +40,8 @@ spec:
         - operation:
             paths: ["/api/*"]
             notPaths:
-            - "/api/member"
-            - "/api/member/*"
+            - "/api/student"
+            - "/api/student/*"
             - "/api/lecturer"
             - "/api/lecturer/*"
             - "/api/admin"
@@ -53,8 +53,8 @@ spec:
       to:
         - operation:
             paths:
-            - "/api/member"
-            - "/api/member/*"
+            - "/api/student"
+            - "/api/student/*"
             methods: ["*"]
       when:
       - key: "request.auth.claims[role]"
