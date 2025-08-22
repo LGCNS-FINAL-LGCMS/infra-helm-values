@@ -1,0 +1,174 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: lgcms-virtualservice
+  namespace: backend
+spec:
+  gateways:
+    - istio-system/lgcms-gateway
+  hosts:
+    - "*"
+  http:
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
+      - uri:
+          regex: "^/api/.*/internal/.*"
+      directResponse:
+        status: 403
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/api/auth"
+        - uri:
+            prefix: "/api/auth/"
+      route:
+        - destination:
+            host: backend-auth.backend.svc.cluster.local
+            port:
+              number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/api/core"
+        - uri:
+            prefix: "/api/core/"
+      route:
+        - destination:
+            host: backend-core.backend.svc.cluster.local
+            port:
+              number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/api/guide"
+        - uri:
+            prefix: "/api/guide/"
+      route:
+        - destination:
+            host: backend-guide.backend.svc.cluster.local
+            port:
+              number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/api/lecture"
+        - uri:
+            prefix: "/api/lecture/"
+      route:
+        - destination:
+            host: backend-lecture.backend.svc.cluster.local
+            port:
+              number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/api/member"
+        - uri:
+            prefix: "/api/member/"
+      route:
+        - destination:
+            host: backend-member.backend.svc.cluster.local
+            port:
+              number: 8080

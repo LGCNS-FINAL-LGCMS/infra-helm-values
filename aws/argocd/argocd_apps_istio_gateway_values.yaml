@@ -1,0 +1,17 @@
+applications:
+  istio-gateway:
+    namespace: argocd
+    project: default
+    sources:
+      - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
+        targetRevision: main
+        path: aws/istio-gateway
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: istio-system
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true

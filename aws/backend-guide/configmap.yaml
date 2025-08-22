@@ -1,0 +1,41 @@
+config:
+  enable: true
+  configData: |
+    server:
+      port: 8080
+    spring:
+      cloud:
+        openfeign:
+          client:
+            config:
+              RemoteFaqService:
+                url: http://backend-core:8080
+      datasource:
+        url: jdbc:postgresql://postgres-guide-external-service:5432/guide?serverTimezone=UTC&useSSL=true&autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+        driver-class-name: org.postgresql.Driver
+      jpa:
+        show-sql: false
+        database: postgresql
+        hibernate:
+          ddl-auto: update
+        properties:
+          hibernate:
+            format_sql: true
+      ai:
+        model:
+          embedding: bedrock-titan
+          chat: bedrock-converse
+        bedrock:
+          aws:
+            region: ap-northeast-2
+          titan:
+            embedding:
+              model: amazon.titan-embed-text-v2:0
+              input-type: text
+        vectorstore:
+          pgvector:
+            index-type: HNSW
+            distance-type: COSINE_DISTANCE
+            initialize-schema: true
+            table-name: test_guide_bot_embedded_q
+            dimensions: 1024

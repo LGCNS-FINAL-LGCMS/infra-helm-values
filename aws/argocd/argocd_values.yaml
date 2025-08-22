@@ -1,0 +1,111 @@
+nameOverride: argocd
+crds:
+  install: true
+  keep: false #CUSTOMED
+  annotations: {}
+  additionalLabels: {}
+
+server:
+  service:
+    type: ClusterIP
+  extraArgs:
+    - --insecure
+
+## Argo Configs
+configs:
+  params:
+    server.insecure: true
+  cm:
+    resource.exclusions: |
+      # Enpoint 제거함
+      ### Network resources created by the Kubernetes control plane and excluded to reduce the number of watched events and UI clutter
+      - apiGroups:
+        - ''
+        - discovery.k8s.io
+        kinds:
+        - EndpointSlice
+      ### Internal Kubernetes resources excluded reduce the number of watched events
+      - apiGroups:
+        - coordination.k8s.io
+        kinds:
+        - Lease
+      ### Internal Kubernetes Authz/Authn resources excluded reduce the number of watched events
+      - apiGroups:
+        - authentication.k8s.io
+        - authorization.k8s.io
+        kinds:
+        - SelfSubjectReview
+        - TokenReview
+        - LocalSubjectAccessReview
+        - SelfSubjectAccessReview
+        - SelfSubjectRulesReview
+        - SubjectAccessReview
+      ### Intermediate Certificate Request excluded reduce the number of watched events
+      - apiGroups:
+        - certificates.k8s.io
+        kinds:
+        - CertificateSigningRequest
+      - apiGroups:
+        - cert-manager.io
+        kinds:
+        - CertificateRequest
+      ### Cilium internal resources excluded reduce the number of watched events and UI Clutter
+      - apiGroups:
+        - cilium.io
+        kinds:
+        - CiliumIdentity
+        - CiliumEndpoint
+        - CiliumEndpointSlice
+      ### Kyverno intermediate and reporting resources excluded reduce the number of watched events and improve performance
+      - apiGroups:
+        - kyverno.io
+        - reports.kyverno.io
+        - wgpolicyk8s.io
+        kinds:
+        - PolicyReport
+        - ClusterPolicyReport
+        - EphemeralReport
+        - ClusterEphemeralReport
+        - AdmissionReport
+        - ClusterAdmissionReport
+        - BackgroundScanReport
+        - ClusterBackgroundScanReport
+        - UpdateRequest
+
+  secret:
+    #    argocdServerAdminPassword: "" # htpasswd -bnBC 10 "" '' | tr -d ':\n' #CUSTOMED
+    argocdServerAdminPassword: "$2y$10$c6LkbQQIXnWPdR0gnt.1f.lHAt..I497YOiECQcn.w9L7D4mSp.tu" #CUSTOMED
+  service:
+    # -- Server service type
+    type: ClusterIP #CUSTOMED
+    # -- Server service http port for NodePort service type (only if `server.service.type` is set to "NodePort")
+#    nodePortHttp: 30080
+    # -- Server service https port for NodePort service type (only if `server.service.type` is set to "NodePort")
+#    nodePortHttps: 30443
+    # -- Server service http port
+    servicePortHttp: 80
+    # -- Server service https port
+    servicePortHttps: 443
+    # -- Server service http port name, can be used to route traffic via istio
+    servicePortHttpName: http
+    # -- Server service https port name, can be used to route traffic via istio
+    servicePortHttpsName: https
+    # -- Server service https port appProtocol
+    ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol
+    servicePortHttpsAppProtocol: ""
+    # -- The class of the load balancer implementation
+    loadBalancerClass: ""
+    # -- LoadBalancer will get created with the IP specified in this field
+    loadBalancerIP: ""
+    # -- Source IP ranges to allow access to service from
+    ## EKS Ref: https://repost.aws/knowledge-center/eks-cidr-ip-address-loadbalancer
+    ## GKE Ref: https://cloud.google.com/kubernetes-engine/docs/concepts/network-overview#limit-connectivity-ext-lb
+    loadBalancerSourceRanges: []
+    # -- Server service external IPs
+    externalIPs: []
+    # -- Denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints
+    ## Ref: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+    externalTrafficPolicy: Cluster
+    # -- Used to maintain session affinity. Supports `ClientIP` and `None`
+    ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+    sessionAffinity: None

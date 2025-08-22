@@ -1,0 +1,22 @@
+config:
+  enable: true
+  configData: |
+    spring:
+      datasource:
+        url: jdbc:postgresql://postgres-member-external-service:5432/member
+        driver-class-name: org.postgresql.Driver
+      jpa:
+        show-sql: false
+        database: postgresql
+        hibernate:
+          ddl-auto: update
+        properties:
+          hibernate:
+            format_sql: true
+      data:
+        redis:
+          host: valkey-member-external-service
+          port: 6379
+          database: 15
+    server:
+      port: 8080
