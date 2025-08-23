@@ -204,3 +204,34 @@ applications:
         selfHeal: true
       syncOptions:
         - CreateNamespace=true
+  backend-upload:
+    namespace: argocd
+    project: default
+    sources:
+      - chart: spring-chart
+        repoURL: https://lgcns-final-lgcms.github.io/infra-helm-packages
+        targetRevision: 0.0.4
+        helm:
+          valueFiles:
+            - $values/local/backend-upload/configmap.yaml
+            - $values/local/backend-upload/secret.yaml
+            - $values/local/backend-upload/values.yaml
+          valuesObject:
+            externalService:
+              - name: "kafka-external-service"
+                internalPort: 9092
+                externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
+                externalPort: 38123
+                type: ClusterIP
+      - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
+        targetRevision: main
+        ref: values
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true

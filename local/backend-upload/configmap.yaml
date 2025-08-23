@@ -1,0 +1,28 @@
+config:
+  enable: true
+  configData: |
+    server:
+      port: 8080
+
+    spring:
+      application:
+        name: backend-upload
+
+      servlet:
+        multipart:
+          max-file-size: 1200MB
+          max-request-size: 1200MB
+
+      kafka:
+        bootstrap-servers: kafka-external-service:9092
+        consumer:
+          group-id: ${spring.application.name}
+          enable-auto-commit: false
+          auto-offset-reset: latest
+          max-poll-records: 10
+          properties:
+            spring.json.trusted.packages: "*"
+            spring.json.use.type.headers: false
+        producer:
+          properties:
+            spring.json.add.type.headers: false
