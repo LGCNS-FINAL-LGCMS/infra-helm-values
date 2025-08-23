@@ -12,49 +12,79 @@ spec:
     - corsPolicy:
         allowCredentials: false
         allowHeaders:
-        - Authorization
-        - Content-Type
-        - Accept
-        - Origin
-        - User-Agent
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
         allowMethods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-        - OPTIONS
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
         allowOrigins:
-        - exact: "*"
+          - exact: "*"
         maxAge: "24h"
       match:
-      - uri:
-          regex: "^/api/.*/internal/.*"
+        - uri:
+            regex: "^/api/.*/internal/.*"
+        - uri:
+            regex: "^/.*/internal/.*"
       directResponse:
         status: 403
     - corsPolicy:
         allowCredentials: false
         allowHeaders:
-        - Authorization
-        - Content-Type
-        - Accept
-        - Origin
-        - User-Agent
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
         allowMethods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-        - OPTIONS
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
         allowOrigins:
-        - exact: "*"
+          - exact: "*"
         maxAge: "24h"
       match:
+        - uri:
+            exact: "/auth"
+        - uri:
+            prefix: "/auth/"
+        - uri:
+            exact: "/student/auth"
+        - uri:
+            prefix: "/student/auth/"
+        - uri:
+            exact: "/lecturer/auth"
+        - uri:
+            prefix: "/lecturer/auth/"
+        - uri:
+            exact: "/admin/auth"
+        - uri:
+            prefix: "/admin/auth/"
         - uri:
             exact: "/api/auth"
         - uri:
             prefix: "/api/auth/"
+        - uri:
+            exact: "/api/student/auth"
+        - uri:
+            prefix: "/api/student/auth/"
+        - uri:
+            exact: "/api/lecturer/auth"
+        - uri:
+            prefix: "/api/lecturer/auth/"
+        - uri:
+            exact: "/api/admin/auth"
+        - uri:
+            prefix: "/api/admin/auth/"
       route:
         - destination:
             host: backend-auth.backend.svc.cluster.local
@@ -63,26 +93,54 @@ spec:
     - corsPolicy:
         allowCredentials: false
         allowHeaders:
-        - Authorization
-        - Content-Type
-        - Accept
-        - Origin
-        - User-Agent
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
         allowMethods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-        - OPTIONS
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
         allowOrigins:
-        - exact: "*"
+          - exact: "*"
         maxAge: "24h"
       match:
+        - uri:
+            exact: "/core"
+        - uri:
+            prefix: "/core/"
+        - uri:
+            exact: "/student/core"
+        - uri:
+            prefix: "/student/core/"
+        - uri:
+            exact: "/lecturer/core"
+        - uri:
+            prefix: "/lecturer/core/"
+        - uri:
+            exact: "/admin/core"
+        - uri:
+            prefix: "/admin/core/"
         - uri:
             exact: "/api/core"
         - uri:
             prefix: "/api/core/"
+        - uri:
+            exact: "/api/student/core"
+        - uri:
+            prefix: "/api/student/core/"
+        - uri:
+            exact: "/api/lecturer/core"
+        - uri:
+            prefix: "/api/lecturer/core/"
+        - uri:
+            exact: "/api/admin/core"
+        - uri:
+            prefix: "/api/admin/core/"
       route:
         - destination:
             host: backend-core.backend.svc.cluster.local
@@ -91,26 +149,54 @@ spec:
     - corsPolicy:
         allowCredentials: false
         allowHeaders:
-        - Authorization
-        - Content-Type
-        - Accept
-        - Origin
-        - User-Agent
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
         allowMethods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-        - OPTIONS
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
         allowOrigins:
-        - exact: "*"
+          - exact: "*"
         maxAge: "24h"
       match:
+        - uri:
+            exact: "/guide"
+        - uri:
+            prefix: "/guide/"
+        - uri:
+            exact: "/student/guide"
+        - uri:
+            prefix: "/student/guide/"
+        - uri:
+            exact: "/lecturer/guide"
+        - uri:
+            prefix: "/lecturer/guide/"
+        - uri:
+            exact: "/admin/guide"
+        - uri:
+            prefix: "/admin/guide/"
         - uri:
             exact: "/api/guide"
         - uri:
             prefix: "/api/guide/"
+        - uri:
+            exact: "/api/student/guide"
+        - uri:
+            prefix: "/api/student/guide/"
+        - uri:
+            exact: "/api/lecturer/guide"
+        - uri:
+            prefix: "/api/lecturer/guide/"
+        - uri:
+            exact: "/api/admin/guide"
+        - uri:
+            prefix: "/api/admin/guide/"
       route:
         - destination:
             host: backend-guide.backend.svc.cluster.local
@@ -119,26 +205,54 @@ spec:
     - corsPolicy:
         allowCredentials: false
         allowHeaders:
-        - Authorization
-        - Content-Type
-        - Accept
-        - Origin
-        - User-Agent
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
         allowMethods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-        - OPTIONS
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
         allowOrigins:
-        - exact: "*"
+          - exact: "*"
         maxAge: "24h"
       match:
+        - uri:
+            exact: "/lecture"
+        - uri:
+            prefix: "/lecture/"
+        - uri:
+            exact: "/student/lecture"
+        - uri:
+            prefix: "/student/lecture/"
+        - uri:
+            exact: "/lecturer/lecture"
+        - uri:
+            prefix: "/lecturer/lecture/"
+        - uri:
+            exact: "/admin/lecture"
+        - uri:
+            prefix: "/admin/lecture/"
         - uri:
             exact: "/api/lecture"
         - uri:
             prefix: "/api/lecture/"
+        - uri:
+            exact: "/api/student/lecture"
+        - uri:
+            prefix: "/api/student/lecture/"
+        - uri:
+            exact: "/api/lecturer/lecture"
+        - uri:
+            prefix: "/api/lecturer/lecture/"
+        - uri:
+            exact: "/api/admin/lecture"
+        - uri:
+            prefix: "/api/admin/lecture/"
       route:
         - destination:
             host: backend-lecture.backend.svc.cluster.local
@@ -147,28 +261,168 @@ spec:
     - corsPolicy:
         allowCredentials: false
         allowHeaders:
-        - Authorization
-        - Content-Type
-        - Accept
-        - Origin
-        - User-Agent
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
         allowMethods:
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-        - OPTIONS
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
         allowOrigins:
-        - exact: "*"
+          - exact: "*"
         maxAge: "24h"
       match:
+        - uri:
+            exact: "/member"
+        - uri:
+            prefix: "/member/"
+        - uri:
+            exact: "/student/member"
+        - uri:
+            prefix: "/student/member/"
+        - uri:
+            exact: "/lecturer/member"
+        - uri:
+            prefix: "/lecturer/member/"
+        - uri:
+            exact: "/admin/member"
+        - uri:
+            prefix: "/admin/member/"
         - uri:
             exact: "/api/member"
         - uri:
             prefix: "/api/member/"
+        - uri:
+            exact: "/api/student/member"
+        - uri:
+            prefix: "/api/student/member/"
+        - uri:
+            exact: "/api/lecturer/member"
+        - uri:
+            prefix: "/api/lecturer/member/"
+        - uri:
+            exact: "/api/admin/member"
+        - uri:
+            prefix: "/api/admin/member/"
       route:
         - destination:
             host: backend-member.backend.svc.cluster.local
+            port:
+              number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
+        allowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+        allowOrigins:
+          - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/lesson"
+        - uri:
+            prefix: "/lesson/"
+        - uri:
+            exact: "/student/lesson"
+        - uri:
+            prefix: "/student/lesson/"
+        - uri:
+            exact: "/lecturer/lesson"
+        - uri:
+            prefix: "/lecturer/lesson/"
+        - uri:
+            exact: "/admin/lesson"
+        - uri:
+            prefix: "/admin/lesson/"
+        - uri:
+            exact: "/api/lesson"
+        - uri:
+            prefix: "/api/lesson/"
+        - uri:
+            exact: "/api/student/lesson"
+        - uri:
+            prefix: "/api/student/lesson/"
+        - uri:
+            exact: "/api/lecturer/lesson"
+        - uri:
+            prefix: "/api/lecturer/lesson/"
+        - uri:
+            exact: "/api/admin/lesson"
+        - uri:
+            prefix: "/api/admin/lesson/"
+      route:
+        - destination:
+            host: backend-lesson.backend.svc.cluster.local
+            port:
+              number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
+        allowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+        allowOrigins:
+          - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/upload"
+        - uri:
+            prefix: "/upload/"
+        - uri:
+            exact: "/student/upload"
+        - uri:
+            prefix: "/student/upload/"
+        - uri:
+            exact: "/lecturer/upload"
+        - uri:
+            prefix: "/lecturer/upload/"
+        - uri:
+            exact: "/admin/upload"
+        - uri:
+            prefix: "/admin/upload/"
+        - uri:
+            exact: "/api/upload"
+        - uri:
+            prefix: "/api/upload/"
+        - uri:
+            exact: "/api/student/upload"
+        - uri:
+            prefix: "/api/student/upload/"
+        - uri:
+            exact: "/api/lecturer/upload"
+        - uri:
+            prefix: "/api/lecturer/upload/"
+        - uri:
+            exact: "/api/admin/upload"
+        - uri:
+            prefix: "/api/admin/upload/"
+      route:
+        - destination:
+            host: backend-upload.backend.svc.cluster.local
             port:
               number: 8080

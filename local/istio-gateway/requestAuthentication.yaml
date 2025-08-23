@@ -38,8 +38,14 @@ spec:
             methods: ["OPTIONS"]
     - to:
         - operation:
-            paths: ["/api/*"]
+            paths: ["/*"]
             notPaths:
+            - "/student"
+            - "/student/*"
+            - "/lecturer"
+            - "/lecturer/*"
+            - "/admin"
+            - "/admin/*"
             - "/api/student"
             - "/api/student/*"
             - "/api/lecturer"
@@ -53,6 +59,8 @@ spec:
       to:
         - operation:
             paths:
+            - "/student"
+            - "/student/*"
             - "/api/student"
             - "/api/student/*"
             methods: ["*"]
@@ -65,6 +73,8 @@ spec:
       to:
         - operation:
             paths:
+            - "/lecturer"
+            - "/lecturer/*"
             - "/api/lecturer"
             - "/api/lecturer/*"
             methods: ["*"]
@@ -77,6 +87,8 @@ spec:
       to:
         - operation:
             paths:
+            - "/admin"
+            - "/admin/*"
             - "/api/admin"
             - "/api/admin/*"
             methods: ["*"]
