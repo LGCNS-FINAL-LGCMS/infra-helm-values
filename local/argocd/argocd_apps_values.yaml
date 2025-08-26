@@ -84,11 +84,6 @@ applications:
                 externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
                 externalPort: 38121
                 type: ClusterIP
-              - name: "kafka-lecture-external-service"
-                internalPort: 9092
-                externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
-                externalPort: 38123
-                type: ClusterIP
       - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
         targetRevision: main
         ref: values
@@ -120,8 +115,8 @@ applications:
                 externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
                 externalPort: 38121
                 type: ClusterIP
-              - name: "kafka-core-external-service"
-                internalPort: 9092
+              - name: "kafka-external-service"
+                internalPort: 9094
                 externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
                 externalPort: 38123
                 type: ClusterIP
@@ -187,11 +182,6 @@ applications:
                 externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
                 externalPort: 38121
                 type: ClusterIP
-              - name: "kafka-lesson-external-service"
-                internalPort: 9092
-                externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
-                externalPort: 38123
-                type: ClusterIP
       - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
         targetRevision: main
         ref: values
@@ -218,10 +208,41 @@ applications:
             - $values/local/backend-upload/values.yaml
           valuesObject:
             externalService:
-              - name: "kafka-external-service"
-                internalPort: 9094
+      - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
+        targetRevision: main
+        ref: values
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+        - CreateNamespace=true
+  backend-consulting:
+    namespace: argocd
+    project: default
+    sources:
+      - chart: spring-chart
+        repoURL: https://lgcns-final-lgcms.github.io/infra-helm-packages
+        targetRevision: 0.0.4
+        helm:
+          valueFiles:
+            - $values/local/backend-consulting/configmap.yaml
+            - $values/local/backend-consulting/secret.yaml
+            - $values/local/backend-consulting/values.yaml
+          valuesObject:
+            externalService:
+              - name: "postgres-consulting-external-service"
+                internalPort: 5432
                 externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
-                externalPort: 38123
+                externalPort: 38121
+                type: ClusterIP
+              - name: "valkey-consulting-external-service"
+                internalPort: 6379
+                externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
+                externalPort: 38122
                 type: ClusterIP
       - repoURL: https://github.com/LGCNS-FINAL-LGCMS/infra-helm-values.git
         targetRevision: main

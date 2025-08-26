@@ -21,7 +21,7 @@ config:
           hibernate:
             format_sql: true
       kafka:
-        bootstrap-servers: kafka-core-external-service:9092
+        bootstrap-servers: kafka-external-service:9094
         listener:
           ack-mode: manual_immediate
         consumer:
