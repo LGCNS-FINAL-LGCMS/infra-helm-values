@@ -219,7 +219,7 @@ applications:
           valuesObject:
             externalService:
               - name: "kafka-external-service"
-                internalPort: 9092
+                internalPort: 9094
                 externalIp: "localhost" #TODO 개인 로컬 호스트의 NAT IP주소로 변경
                 externalPort: 38123
                 type: ClusterIP
