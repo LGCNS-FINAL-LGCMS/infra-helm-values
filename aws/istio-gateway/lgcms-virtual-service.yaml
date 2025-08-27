@@ -426,3 +426,171 @@ spec:
             host: backend-upload.backend.svc.cluster.local
             port:
               number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
+        allowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+        allowOrigins:
+          - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/consulting"
+        - uri:
+            prefix: "/consulting/"
+        - uri:
+            exact: "/student/consulting"
+        - uri:
+            prefix: "/student/consulting/"
+        - uri:
+            exact: "/lecturer/consulting"
+        - uri:
+            prefix: "/lecturer/consulting/"
+        - uri:
+            exact: "/admin/consulting"
+        - uri:
+            prefix: "/admin/consulting/"
+        - uri:
+            exact: "/api/consulting"
+        - uri:
+            prefix: "/api/consulting/"
+        - uri:
+            exact: "/api/student/consulting"
+        - uri:
+            prefix: "/api/student/consulting/"
+        - uri:
+            exact: "/api/lecturer/consulting"
+        - uri:
+            prefix: "/api/lecturer/consulting/"
+        - uri:
+            exact: "/api/admin/consulting"
+        - uri:
+            prefix: "/api/admin/consulting/"
+      route:
+        - destination:
+            host: backend-consulting.backend.svc.cluster.local
+            port:
+              number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
+        allowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+        allowOrigins:
+          - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/leveltest"
+        - uri:
+            prefix: "/leveltest/"
+        - uri:
+            exact: "/student/leveltest"
+        - uri:
+            prefix: "/student/leveltest/"
+        - uri:
+            exact: "/lecturer/leveltest"
+        - uri:
+            prefix: "/lecturer/leveltest/"
+        - uri:
+            exact: "/admin/leveltest"
+        - uri:
+            prefix: "/admin/leveltest/"
+        - uri:
+            exact: "/api/leveltest"
+        - uri:
+            prefix: "/api/leveltest/"
+        - uri:
+            exact: "/api/student/leveltest"
+        - uri:
+            prefix: "/api/student/leveltest/"
+        - uri:
+            exact: "/api/lecturer/leveltest"
+        - uri:
+            prefix: "/api/lecturer/leveltest/"
+        - uri:
+            exact: "/api/admin/leveltest"
+        - uri:
+            prefix: "/api/admin/leveltest/"
+      route:
+        - destination:
+            host: backend-leveltest.backend.svc.cluster.local
+            port:
+              number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
+        allowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+        allowOrigins:
+          - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/payment"
+        - uri:
+            prefix: "/payment/"
+        - uri:
+            exact: "/student/payment"
+        - uri:
+            prefix: "/student/payment/"
+        - uri:
+            exact: "/lecturer/payment"
+        - uri:
+            prefix: "/lecturer/payment/"
+        - uri:
+            exact: "/admin/payment"
+        - uri:
+            prefix: "/admin/payment/"
+        - uri:
+            exact: "/api/payment"
+        - uri:
+            prefix: "/api/payment/"
+        - uri:
+            exact: "/api/student/payment"
+        - uri:
+            prefix: "/api/student/payment/"
+        - uri:
+            exact: "/api/lecturer/payment"
+        - uri:
+            prefix: "/api/lecturer/payment/"
+        - uri:
+            exact: "/api/admin/payment"
+        - uri:
+            prefix: "/api/admin/payment/"
+      route:
+        - destination:
+            host: backend-payment.backend.svc.cluster.local
+            port:
+              number: 8080
