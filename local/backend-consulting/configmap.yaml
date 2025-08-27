@@ -53,6 +53,10 @@ config:
             config:
               RemoteLectureService:
                 url: http://backend-lecture:8080
+      ai:
+        bedrock:
+          aws:
+            region: ap-northeast-2
     
       batch:
         job:
