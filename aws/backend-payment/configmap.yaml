@@ -1,0 +1,59 @@
+config:
+  enable: true
+  configData: |
+    server:
+      port: 8080
+
+    spring:
+      application:
+        name: backend-payment
+    
+      cloud:
+        openfeign:
+          client:
+            config:
+              RemoteLectureService:
+                url: http://backend-lecture:8080
+      datasource:
+        url: jdbc:postgresql://postgres-payment-external-service:5432/payment?serverTimezone=UTC&useSSL=true&autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+        driver-class-name: org.postgresql.Driver
+      jpa:
+        show-sql: false
+        database: postgresql
+        hibernate:
+          ddl-auto: update
+        properties:
+          hibernate:
+            format_sql: true
+
+      kafka:
+        bootstrap-servers: kafka-external-service:9094
+        listener:
+          ack-mode: manual_immediate
+        consumer:
+          group-id: ${spring.application.name}
+          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+          enable-auto-commit: false
+          auto-offset-reset: latest
+          max-poll-records: 10
+          properties:
+            spring.json.trusted.packages: "*"
+            spring.json.use.type.headers: false
+        producer:
+          key-serializer: org.apache.kafka.common.serialization.StringSerializer
+          value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+          properties:
+            spring.json.add.type.headers: false
+    kakao:
+      baseUrl: https://open-api.kakaopay.com/online/v1/payment
+      connectTimeout: 5000
+      readTimeout: 5000
+      cid: "TC0ONETIME"
+      approvalUrl: "https://www.lgcms.click/success"
+      failUrl: "https://www.lgcms.click/fail"
+      cancelUrl: "https://www.lgcms.click/cancel"
+      taxFreeAmount: 0
+      vatAmount: 0
+      partnerOrderId: "hello"
+      partnerUserId: "hello"
