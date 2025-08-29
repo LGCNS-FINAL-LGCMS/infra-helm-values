@@ -1,0 +1,15 @@
+name: frontend
+namespace: frontend
+replicas: 1
+nginxContainer:
+  image: ghcr.io/lgcns-final-lgcms/front
+  version: 0.1
+  imagePullPolicy: Always
+service:
+  http:
+    type: NodePort
+    port: 80
+  https:
+    type: NodePort
+    port: 443
+  type: NodePort
