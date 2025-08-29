@@ -3,7 +3,7 @@ namespace: backend
 replicas: 1
 springContainer:
   image: ghcr.io/lgcns-final-lgcms/backend-guide-bot
-  version: 0.2
+  version: 0.5
   profile: dev
   imagePullPolicy: Always
 service:

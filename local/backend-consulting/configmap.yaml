@@ -1,12 +1,30 @@
 config:
   enable: true
   configData: |
+    logging:
+      level:
+        org.redisson: DEBUG
+        io.netty: DEBUG
     server:
       port: 8080
     
     spring:
       application:
         name: consulting
+      data:
+        redis:
+          host: valkey-consulting-external-service
+          port: 6379
+          database: 7
+          database-lock: 7
+          config:
+            connectionPoolSize: 10
+            connectionMinimumIdleSize: 5
+            subscriptionConnectionPoolSize: 5
+            subscriptionConnectionMinimumIdleSize: 1
+            idleConnectionTimeout: 30000
+            connectTimeout: 30000
+            timeout: 3000
     
       datasource:
         url: jdbc:postgresql://postgres-consulting-external-service:5432/consulting?serverTimezone=UTC&useSSL=true&autoReconnect=true&useUnicode=true&characterEncoding=utf-8

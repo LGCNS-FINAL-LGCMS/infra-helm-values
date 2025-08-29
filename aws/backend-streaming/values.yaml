@@ -1,9 +1,9 @@
-name: backend-consulting
+name: backend-streaming
 namespace: backend
 replicas: 1
 springContainer:
-  image: ghcr.io/lgcns-final-lgcms/consulting
-  version: 0.2
+  image: ghcr.io/lgcns-final-lgcms/streaming
+  version: 0.1
   profile: dev
   imagePullPolicy: Always
 service:

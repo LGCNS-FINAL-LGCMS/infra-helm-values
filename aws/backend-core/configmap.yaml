@@ -1,6 +1,11 @@
 config:
   enable: true
   configData: |
+    logging:
+      level:
+        io.netty: DEBUG
+        org.springframework.data.redis: DEBUG
+        logging.level.io.lettuce.core: DEBUG
     server:
       port: 8080
     spring:
@@ -20,8 +25,13 @@ config:
         properties:
           hibernate:
             format_sql: true
+      data:
+        redis:
+          host: valkey-core-external-service
+          port: 6379
+          database: 15
       kafka:
-        bootstrap-servers: kafka-core-external-service:9092
+        bootstrap-servers: kafka-external-service:9094
         listener:
           ack-mode: manual_immediate
         consumer:

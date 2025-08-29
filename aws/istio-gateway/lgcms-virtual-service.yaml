@@ -7,7 +7,7 @@ spec:
   gateways:
     - istio-system/lgcms-gateway
   hosts:
-    - "*"
+    - "api.lgcms.click"
   http:
     - corsPolicy:
         allowCredentials: false
@@ -69,22 +69,6 @@ spec:
             exact: "/admin/auth"
         - uri:
             prefix: "/admin/auth/"
-        - uri:
-            exact: "/api/auth"
-        - uri:
-            prefix: "/api/auth/"
-        - uri:
-            exact: "/api/student/auth"
-        - uri:
-            prefix: "/api/student/auth/"
-        - uri:
-            exact: "/api/lecturer/auth"
-        - uri:
-            prefix: "/api/lecturer/auth/"
-        - uri:
-            exact: "/api/admin/auth"
-        - uri:
-            prefix: "/api/admin/auth/"
       route:
         - destination:
             host: backend-auth.backend.svc.cluster.local
@@ -125,22 +109,6 @@ spec:
             exact: "/admin/core"
         - uri:
             prefix: "/admin/core/"
-        - uri:
-            exact: "/api/core"
-        - uri:
-            prefix: "/api/core/"
-        - uri:
-            exact: "/api/student/core"
-        - uri:
-            prefix: "/api/student/core/"
-        - uri:
-            exact: "/api/lecturer/core"
-        - uri:
-            prefix: "/api/lecturer/core/"
-        - uri:
-            exact: "/api/admin/core"
-        - uri:
-            prefix: "/api/admin/core/"
       route:
         - destination:
             host: backend-core.backend.svc.cluster.local
@@ -181,22 +149,6 @@ spec:
             exact: "/admin/guide"
         - uri:
             prefix: "/admin/guide/"
-        - uri:
-            exact: "/api/guide"
-        - uri:
-            prefix: "/api/guide/"
-        - uri:
-            exact: "/api/student/guide"
-        - uri:
-            prefix: "/api/student/guide/"
-        - uri:
-            exact: "/api/lecturer/guide"
-        - uri:
-            prefix: "/api/lecturer/guide/"
-        - uri:
-            exact: "/api/admin/guide"
-        - uri:
-            prefix: "/api/admin/guide/"
       route:
         - destination:
             host: backend-guide.backend.svc.cluster.local
@@ -237,22 +189,6 @@ spec:
             exact: "/admin/lecture"
         - uri:
             prefix: "/admin/lecture/"
-        - uri:
-            exact: "/api/lecture"
-        - uri:
-            prefix: "/api/lecture/"
-        - uri:
-            exact: "/api/student/lecture"
-        - uri:
-            prefix: "/api/student/lecture/"
-        - uri:
-            exact: "/api/lecturer/lecture"
-        - uri:
-            prefix: "/api/lecturer/lecture/"
-        - uri:
-            exact: "/api/admin/lecture"
-        - uri:
-            prefix: "/api/admin/lecture/"
       route:
         - destination:
             host: backend-lecture.backend.svc.cluster.local
@@ -293,22 +229,6 @@ spec:
             exact: "/admin/member"
         - uri:
             prefix: "/admin/member/"
-        - uri:
-            exact: "/api/member"
-        - uri:
-            prefix: "/api/member/"
-        - uri:
-            exact: "/api/student/member"
-        - uri:
-            prefix: "/api/student/member/"
-        - uri:
-            exact: "/api/lecturer/member"
-        - uri:
-            prefix: "/api/lecturer/member/"
-        - uri:
-            exact: "/api/admin/member"
-        - uri:
-            prefix: "/api/admin/member/"
       route:
         - destination:
             host: backend-member.backend.svc.cluster.local
@@ -349,22 +269,6 @@ spec:
             exact: "/admin/lesson"
         - uri:
             prefix: "/admin/lesson/"
-        - uri:
-            exact: "/api/lesson"
-        - uri:
-            prefix: "/api/lesson/"
-        - uri:
-            exact: "/api/student/lesson"
-        - uri:
-            prefix: "/api/student/lesson/"
-        - uri:
-            exact: "/api/lecturer/lesson"
-        - uri:
-            prefix: "/api/lecturer/lesson/"
-        - uri:
-            exact: "/api/admin/lesson"
-        - uri:
-            prefix: "/api/admin/lesson/"
       route:
         - destination:
             host: backend-lesson.backend.svc.cluster.local
@@ -405,22 +309,6 @@ spec:
             exact: "/admin/upload"
         - uri:
             prefix: "/admin/upload/"
-        - uri:
-            exact: "/api/upload"
-        - uri:
-            prefix: "/api/upload/"
-        - uri:
-            exact: "/api/student/upload"
-        - uri:
-            prefix: "/api/student/upload/"
-        - uri:
-            exact: "/api/lecturer/upload"
-        - uri:
-            prefix: "/api/lecturer/upload/"
-        - uri:
-            exact: "/api/admin/upload"
-        - uri:
-            prefix: "/api/admin/upload/"
       route:
         - destination:
             host: backend-upload.backend.svc.cluster.local
@@ -461,22 +349,6 @@ spec:
             exact: "/admin/consulting"
         - uri:
             prefix: "/admin/consulting/"
-        - uri:
-            exact: "/api/consulting"
-        - uri:
-            prefix: "/api/consulting/"
-        - uri:
-            exact: "/api/student/consulting"
-        - uri:
-            prefix: "/api/student/consulting/"
-        - uri:
-            exact: "/api/lecturer/consulting"
-        - uri:
-            prefix: "/api/lecturer/consulting/"
-        - uri:
-            exact: "/api/admin/consulting"
-        - uri:
-            prefix: "/api/admin/consulting/"
       route:
         - destination:
             host: backend-consulting.backend.svc.cluster.local
@@ -517,22 +389,6 @@ spec:
             exact: "/admin/leveltest"
         - uri:
             prefix: "/admin/leveltest/"
-        - uri:
-            exact: "/api/leveltest"
-        - uri:
-            prefix: "/api/leveltest/"
-        - uri:
-            exact: "/api/student/leveltest"
-        - uri:
-            prefix: "/api/student/leveltest/"
-        - uri:
-            exact: "/api/lecturer/leveltest"
-        - uri:
-            prefix: "/api/lecturer/leveltest/"
-        - uri:
-            exact: "/api/admin/leveltest"
-        - uri:
-            prefix: "/api/admin/leveltest/"
       route:
         - destination:
             host: backend-leveltest.backend.svc.cluster.local
@@ -573,24 +429,48 @@ spec:
             exact: "/admin/payment"
         - uri:
             prefix: "/admin/payment/"
-        - uri:
-            exact: "/api/payment"
-        - uri:
-            prefix: "/api/payment/"
-        - uri:
-            exact: "/api/student/payment"
-        - uri:
-            prefix: "/api/student/payment/"
-        - uri:
-            exact: "/api/lecturer/payment"
-        - uri:
-            prefix: "/api/lecturer/payment/"
-        - uri:
-            exact: "/api/admin/payment"
-        - uri:
-            prefix: "/api/admin/payment/"
       route:
         - destination:
             host: backend-payment.backend.svc.cluster.local
+            port:
+              number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+          - Authorization
+          - Content-Type
+          - Accept
+          - Origin
+          - User-Agent
+        allowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - OPTIONS
+        allowOrigins:
+          - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/notification"
+        - uri:
+            prefix: "/notification/"
+        - uri:
+            exact: "/student/notification"
+        - uri:
+            prefix: "/student/notification/"
+        - uri:
+            exact: "/lecturer/notification"
+        - uri:
+            prefix: "/lecturer/notification/"
+        - uri:
+            exact: "/admin/notification"
+        - uri:
+            prefix: "/admin/notification/"
+      route:
+        - destination:
+            host: backend-notification.backend.svc.cluster.local
             port:
               number: 8080

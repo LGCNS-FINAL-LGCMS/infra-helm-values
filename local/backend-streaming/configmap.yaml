@@ -1,30 +1,18 @@
 config:
   enable: true
   configData: |
-    logging:
-      level:
-        io.netty: DEBUG
-        org.springframework.data.redis: DEBUG
-        logging.level.io.lettuce.core: DEBUG
+    server:
+      port: 8080
+    
     spring:
       application:
-        name: backend-member
-      datasource:
-        url: jdbc:postgresql://postgres-member-external-service:5432/member
-        driver-class-name: org.postgresql.Driver
-      jpa:
-        show-sql: false
-        database: postgresql
-        hibernate:
-          ddl-auto: update
-        properties:
-          hibernate:
-            format_sql: true
-      data:
-        redis:
-          host: valkey-member-external-service
-          port: 6379
-          database: 15
+        name: backend-streaming
+    
+      servlet:
+        multipart:
+          max-file-size: 1200MB
+          max-request-size: 1200MB
+    
       kafka:
         bootstrap-servers: kafka-external-service:9094
     
@@ -47,5 +35,13 @@ config:
           value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
           properties:
             spring.json.add.type.headers: false
-    server:
-      port: 8080
+    cloud:
+      aws:
+        region:
+          auto: false
+        stack:
+          auto: false
+    ffmpeg:
+      path: /usr/bin/ffmpeg
+    ffprobe:
+      path: /usr/bin/ffprobe

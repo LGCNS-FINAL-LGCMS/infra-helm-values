@@ -4,6 +4,8 @@ config:
     server:
       port: 8080
     spring:
+      application:
+        name: backend-leveltest
       datasource:
         url: jdbc:postgresql://postgres-leveltest-external-service:5432/leveltest?serverTimezone=UTC&useSSL=true&autoReconnect=true&useUnicode=true&characterEncoding=utf-8
         driver-class-name: org.postgresql.Driver
@@ -32,3 +34,23 @@ config:
 
       kafka:
         bootstrap-servers: kafka-external-service:9094
+
+        listener:
+          ack-mode: manual_immediate
+
+        consumer:
+          group-id: ${spring.application.name}
+          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+          enable-auto-commit: false
+          auto-offset-reset: latest
+          max-poll-records: 10
+          properties:
+            spring.json.trusted.packages: "*"
+            spring.json.use.type.headers: false
+
+        producer:
+          key-serializer: org.apache.kafka.common.serialization.StringSerializer
+          value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+          properties:
+            spring.json.add.type.headers: false

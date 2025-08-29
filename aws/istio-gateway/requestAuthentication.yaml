@@ -46,12 +46,6 @@ spec:
               - "/lecturer/*"
               - "/admin"
               - "/admin/*"
-              - "/api/student"
-              - "/api/student/*"
-              - "/api/lecturer"
-              - "/api/lecturer/*"
-              - "/api/admin"
-              - "/api/admin/*"
             methods: ["*"]
     - from:
         - source:
@@ -61,8 +55,6 @@ spec:
             paths:
               - "/student"
               - "/student/*"
-              - "/api/student"
-              - "/api/student/*"
             methods: ["*"]
       when:
         - key: "request.auth.claims[role]"
@@ -75,8 +67,6 @@ spec:
             paths:
               - "/lecturer"
               - "/lecturer/*"
-              - "/api/lecturer"
-              - "/api/lecturer/*"
             methods: ["*"]
       when:
         - key: "request.auth.claims[role]"
@@ -89,8 +79,6 @@ spec:
             paths:
               - "/admin"
               - "/admin/*"
-              - "/api/admin"
-              - "/api/admin/*"
             methods: ["*"]
       when:
         - key: "request.auth.claims[role]"

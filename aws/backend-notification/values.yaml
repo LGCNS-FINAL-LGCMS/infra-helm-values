@@ -1,9 +1,9 @@
-name: backend-consulting
+name: backend-notification
 namespace: backend
-replicas: 1
+replicas: 3
 springContainer:
-  image: ghcr.io/lgcns-final-lgcms/consulting
-  version: 0.2
+  image: ghcr.io/lgcns-final-lgcms/notification
+  version: 0.1
   profile: dev
   imagePullPolicy: Always
 service:

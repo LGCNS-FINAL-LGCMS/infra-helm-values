@@ -1,36 +1,26 @@
 config:
   enable: true
   configData: |
-    logging:
-      level:
-        io.netty: DEBUG
-        org.springframework.data.redis: DEBUG
-        logging.level.io.lettuce.core: DEBUG
+    server:
+      port: 8080
+    
     spring:
       application:
-        name: backend-member
-      datasource:
-        url: jdbc:postgresql://postgres-member-external-service:5432/member
-        driver-class-name: org.postgresql.Driver
-      jpa:
-        show-sql: false
-        database: postgresql
-        hibernate:
-          ddl-auto: update
+        name: backend-notification
+      r2dbc:
+        url: r2dbc:pool:postgresql://postgres-notification-external-service:5432/notification
         properties:
-          hibernate:
-            format_sql: true
-      data:
-        redis:
-          host: valkey-member-external-service
-          port: 6379
-          database: 15
+          serverZoneId: Asia/Seoul
+          connectTimeout: PT30S
+          statementTimeout: PT60S
+          lockTimeout: PT30S
+
       kafka:
         bootstrap-servers: kafka-external-service:9094
-    
+
         listener:
           ack-mode: manual_immediate
-    
+
         consumer:
           group-id: ${spring.application.name}
           key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -41,11 +31,21 @@ config:
           properties:
             spring.json.trusted.packages: "*"
             spring.json.use.type.headers: false
-    
+
         producer:
           key-serializer: org.apache.kafka.common.serialization.StringSerializer
           value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
           properties:
             spring.json.add.type.headers: false
-    server:
-      port: 8080
+      data:
+        redis:
+          host: valkey-notification-external-service
+          port: 6379
+          database: 5
+
+    front-routes:
+      student-main-page: /main
+      lecturer-main-page: /userpage/lecturer
+      qna-page: /qna/%d
+      lecture-edit-page: /lessons/manage/%d
+      leveltest-report-page: /member/student/report/%d
