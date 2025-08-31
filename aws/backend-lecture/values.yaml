@@ -9,3 +9,5 @@ springContainer:
 service:
   type: NodePort
   port: 8080
+hpa:
+  enabled: true
