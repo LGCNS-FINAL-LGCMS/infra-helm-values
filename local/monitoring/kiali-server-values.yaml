@@ -1,0 +1,27 @@
+deployment:
+  replicas: 1
+  resources:
+    requests:
+      memory: 64Mi
+      cpu: 100m
+    limits:
+      memory: 256Mi
+      cpu: 200m
+
+auth:
+  strategy: anonymous
+
+external_services:
+  prometheus:
+    url: http://prometheus-operated:9090
+  grafana:
+    enabled: true
+    url: http://prometheus-stack-grafana:3000
+  tracing:
+    enabled: true
+    url: http://tempo:3200
+
+server:
+  web_fqdn: ""
+  web_port: 20001
+  web_root: /kiali
