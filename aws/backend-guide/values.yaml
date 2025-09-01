@@ -20,3 +20,7 @@ service:
   port: 8080
 hpa:
   enabled: true
+  cpu:
+    enabled: true
+  memory:
+    enabled: true
