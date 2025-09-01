@@ -6,8 +6,6 @@ config:
         name: backend-member
       datasource:
         url: jdbc:postgresql://postgres-member-external-service:5432/member
-        username: lgcms
-        password: 1234
         driver-class-name: org.postgresql.Driver
       jpa:
         show-sql: false

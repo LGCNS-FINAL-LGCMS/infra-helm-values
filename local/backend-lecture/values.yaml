@@ -6,6 +6,21 @@ springContainer:
   version: 0.3
   profile: dev
   imagePullPolicy: Always
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
 service:
   type: NodePort
   port: 8080
+hpa:
+  enabled: true
+  cpu:
+    enabled: true
+  memory:
+    enabled: true
+  behavior:
+    enabled: true
