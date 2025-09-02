@@ -47,5 +47,10 @@ config:
           value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
           properties:
             spring.json.add.type.headers: false
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info
     server:
       port: 8080

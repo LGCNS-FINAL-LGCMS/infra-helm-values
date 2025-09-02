@@ -82,3 +82,8 @@ config:
         jdbc:
           initialize-schema: always
           schema: classpath:org/springframework/batch/core/schema-postgresql.sql
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info

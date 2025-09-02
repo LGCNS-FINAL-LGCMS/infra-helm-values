@@ -50,3 +50,8 @@ config:
             config:
               RemoteLectureService:
                 url: http://backend-lecture:8080
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info

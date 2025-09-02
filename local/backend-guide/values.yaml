@@ -27,3 +27,5 @@ hpa:
     enabled: true
   behavior:
     enabled: true
+monitor:
+  enabled: true

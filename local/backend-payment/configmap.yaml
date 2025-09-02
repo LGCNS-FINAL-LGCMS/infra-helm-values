@@ -61,3 +61,8 @@ config:
       vatAmount: 0
       partnerOrderId: "hello"
       partnerUserId: "hello"
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info

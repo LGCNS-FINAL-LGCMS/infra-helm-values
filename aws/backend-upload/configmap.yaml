@@ -23,3 +23,8 @@ config:
         producer:
           properties:
             spring.json.add.type.headers: false
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info

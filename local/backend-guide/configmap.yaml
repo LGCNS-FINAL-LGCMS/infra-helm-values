@@ -39,3 +39,8 @@ config:
             initialize-schema: true
             table-name: test_guide_bot_embedded_q
             dimensions: 1024
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info

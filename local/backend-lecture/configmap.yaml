@@ -49,3 +49,8 @@ config:
             config:
               RemoteLessonService:
                 url: http://backend-lesson:8080
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info

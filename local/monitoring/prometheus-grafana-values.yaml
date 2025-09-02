@@ -1,18 +1,32 @@
 prometheus:
+  service:
+    type: NodePort
+    nodePort: 30002
   prometheusSpec:
     replicas: 1
     retention: 7d
     scrapeInterval: 30s
     evaluationInterval: 30s
+    additionalScrapeConfigs:
+      - job_name: istio-mesh
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+                - istio-system
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: istio-proxy;http-monitoring
 
     # 프로메테우스 스토리지 설정
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          storageClassName: gp2
-          resources:
-            requests:
-              storage: 20Gi
+#    storageSpec:
+#      volumeClaimTemplate:
+#        spec:
+#          storageClassName: gp2
+#          resources:
+#            requests:
+#              storage: 20Gi
 
     resources:
       requests:
@@ -23,9 +37,19 @@ prometheus:
         cpu: 1000m
 
     serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {}
+    serviceMonitorSelector: {}
+    podMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelector: {}
+
+#      matchLabels:
+#        release: "prometheus"
 
 grafana:
   enabled: true
+  service:
+    type: NodePort
+    nodePort: 30001
 
   resources:
     requests:
@@ -36,12 +60,13 @@ grafana:
       cpu: 500m
 
   # 그라파나 스토리지 설정
-  persistence:
-    enabled: true
-    type: pvc
-    storageClassName: gp2
-    size: 10Gi
+#  persistence:
+#    enabled: true
+#    type: pvc
+#    storageClassName: gp2
+#    size: 10Gi
 
+  adminUser: "lgcms"
   adminPassword: "lgcms-passworld"
 
   # Loki, Tempo 데이터소스 설정
@@ -62,6 +87,19 @@ grafana:
     - name: OpenTelemetry
       type: prometheus
       url: http://otel-collector:8889
+
+    # Istio Control Plane 메트릭
+#    - job_name: 'istio-policy'
+#      kubernetes_sd_configs:
+#        - role: endpoints
+#          namespaces:
+#            names:
+#              - istio-system
+#      relabel_configs:
+#        - source_labels: [__meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+#          action: keep
+#          regex: istio-policy;http-policy-monitoring
+
 
   # 대시보드 자동 임포트 비활성화
   sidecar:
@@ -85,6 +123,7 @@ alertmanager:
 # Node Exporter 설정
 prometheus-node-exporter:
   enabled: true
+  hostRootfs: false
   resources:
     requests:
       memory: 30Mi

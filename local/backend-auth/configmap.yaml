@@ -2,6 +2,8 @@ config:
   enable: true
   configData: |
     spring:
+      application:
+        name: backend-auth
       cloud:
         openfeign:
           client:
@@ -13,3 +15,8 @@ config:
           host: valkey-auth-external-service
           port: 6379
           database: 0
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info
