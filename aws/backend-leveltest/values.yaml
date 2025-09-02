@@ -9,6 +9,7 @@ springContainer:
   aws:
     region: "ap-northeast-2"
   resources:
+    enabled: false
     requests:
       cpu: "250m"
       memory: "512Mi"
@@ -19,8 +20,10 @@ service:
   type: NodePort
   port: 8080
 hpa:
-  enabled: true
+  enabled: false
   cpu:
     enabled: true
   memory:
+    enabled: true
+  behavior:
     enabled: true
