@@ -76,6 +76,9 @@ grafana:
       url: http://loki:3100
       jsonData:
         maxLines: 1000
+        httpHeaderName1: "X-Scope-OrgID"
+      secureJsonData:
+        httpHeaderValue1: "lgcms-tenant"
 
     - name: Tempo
       type: tempo
