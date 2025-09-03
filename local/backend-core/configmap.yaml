@@ -49,3 +49,6 @@ config:
         web:
           exposure:
             include: prometheus,health,info
+    metrics:
+      tags:
+        application: ${spring.application.name}

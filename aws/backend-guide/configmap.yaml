@@ -4,6 +4,8 @@ config:
     server:
       port: 8080
     spring:
+      application:
+        name: backend-guide
       cloud:
         openfeign:
           client:
@@ -44,3 +46,6 @@ config:
         web:
           exposure:
             include: prometheus,health,info
+    metrics:
+      tags:
+        application: ${spring.application.name}

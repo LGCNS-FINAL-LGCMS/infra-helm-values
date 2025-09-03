@@ -1,16 +1,12 @@
 config:
   enable: true
   configData: |
-    logging:
-      level:
-        org.redisson: DEBUG
-        io.netty: DEBUG
     server:
       port: 8080
     
     spring:
       application:
-        name: consulting
+        name: backend-consulting
       data:
         redis:
           host: valkey-consulting-external-service
@@ -87,3 +83,6 @@ config:
         web:
           exposure:
             include: prometheus,health,info
+    metrics:
+      tags:
+        application: ${spring.application.name}

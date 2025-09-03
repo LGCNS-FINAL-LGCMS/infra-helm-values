@@ -1,11 +1,6 @@
 config:
   enable: true
   configData: |
-    logging:
-      level:
-        io.netty: DEBUG
-        org.springframework.data.redis: DEBUG
-        logging.level.io.lettuce.core: DEBUG
     server:
       port: 8080
     spring:
@@ -54,3 +49,6 @@ config:
         web:
           exposure:
             include: prometheus,health,info
+    metrics:
+      tags:
+        application: ${spring.application.name}
