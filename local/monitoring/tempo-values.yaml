@@ -2,11 +2,17 @@ tempo:
   repository: grafana/tempo
   tag: 2.3.0
 
-# 단일 인스턴스 모드
 persistence:
   enabled: true
-  storageClassName: gp2
+  storageClassName: hostpath
   size: 10Gi
+  accessModes:
+    - ReadWriteOnce
+securityContext:
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
+  runAsNonRoot: true
 
 resources:
   requests:
@@ -15,26 +21,3 @@ resources:
   limits:
     memory: 512Mi
     cpu: 300m
-
-config: |
-  multitenancy_enabled: false
-  server:
-    http_listen_port: 3200
-    grpc_listen_port: 9095
-  distributor:
-    receivers:
-      jaeger:
-        protocols:
-          thrift_http:
-          grpc:
-      otlp:
-        protocols:
-          grpc:
-            endpoint: 0.0.0.0:4317
-          http:
-            endpoint: 0.0.0.0:4318
-  storage:
-    trace:
-      backend: local
-      local:
-        path: /var/tempo/traces
