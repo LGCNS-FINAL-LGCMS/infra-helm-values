@@ -474,3 +474,43 @@ spec:
             host: backend-notification.backend.svc.cluster.local
             port:
               number: 8080
+    - corsPolicy:
+        allowCredentials: false
+        allowHeaders:
+        - Authorization
+        - Content-Type
+        - Accept
+        - Origin
+        - User-Agent
+        allowMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - PATCH
+        - OPTIONS
+        allowOrigins:
+        - exact: "*"
+        maxAge: "24h"
+      match:
+        - uri:
+            exact: "/tutor"
+        - uri:
+            prefix: "/tutor/"
+        - uri:
+            exact: "/student/tutor"
+        - uri:
+            prefix: "/student/tutor/"
+        - uri:
+            exact: "/lecturer/tutor"
+        - uri:
+            prefix: "/lecturer/tutor/"
+        - uri:
+            exact: "/admin/tutor"
+        - uri:
+            prefix: "/admin/tutor/"
+      route:
+        - destination:
+            host: backend-tutor.backend.svc.cluster.local
+            port:
+              number: 8080

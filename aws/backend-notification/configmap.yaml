@@ -47,7 +47,7 @@ config:
       student-main-page: /main
       lecturer-main-page: /userpage/lecturer
       qna-page: /qna/%d
-      lecture-edit-page: /lessons/manage/%d
+      lecture-edit-page: /member/lecturer/lessons/%s
       leveltest-report-page: /member/student/report/%d
     management:
       endpoints:

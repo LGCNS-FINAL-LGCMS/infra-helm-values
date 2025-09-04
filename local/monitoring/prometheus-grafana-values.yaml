@@ -87,9 +87,9 @@ grafana:
         tracesToLogs:
           datasourceUid: "loki"
 
-    - name: OpenTelemetry
-      type: prometheus
-      url: http://otel-collector:8889
+#    - name: OpenTelemetry
+#      type: prometheus
+#      url: http://otel-collector:8889
 
     # Istio Control Plane 메트릭
 #    - job_name: 'istio-policy'
@@ -126,7 +126,7 @@ alertmanager:
 # Node Exporter 설정
 prometheus-node-exporter:
   enabled: true
-  hostRootfs: false
+  hostRootfs: true
   resources:
     requests:
       memory: 30Mi

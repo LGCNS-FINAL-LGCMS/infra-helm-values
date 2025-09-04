@@ -3,7 +3,36 @@ replicaCount: 1
 
 image:
   repository: otel/opentelemetry-collector-contrib
-  tag: 0.89.0
+  tag: 0.134.1
+
+clusterRole:
+  create: true
+  rules:
+    - apiGroups:
+        - ""
+      resources:
+        - pods
+        - namespaces
+        - nodes
+        - nodes/proxy
+        - services
+        - endpoints
+      verbs:
+        - get
+        - watch
+        - list
+    - apiGroups:
+        - extensions
+      resources:
+        - ingresses
+      verbs:
+        - get
+        - list
+        - watch
+    - nonResourceURLs:
+        - /metrics
+      verbs:
+        - get
 
 resources:
   requests:
@@ -15,61 +44,39 @@ resources:
 
 config:
   receivers:
-    otlp:
-      protocols:
-        grpc:
-          endpoint: 0.0.0.0:4317
-        http:
-          endpoint: 0.0.0.0:4318
-    prometheus:
-      config:
-        scrape_configs:
-          - job_name: 'otel-collector'
-            scrape_interval: 10s
-            static_configs:
-              - targets: ['0.0.0.0:8888']
-
-  processors:
-    batch:
+    jaeger: null
+    prometheus: null
+    zipkin: null
+  processors: {}
+#    batch: # {}
+#      send_batch_size: 100
+#      timeout: 50ms
+#      send_batch_max_size: 500
 
   exporters:
-    prometheus:
-      endpoint: "0.0.0.0:8889"
-    loki:
-      endpoint: http://loki:3100/loki/api/v1/push
     otlp/tempo:
-      endpoint: http://tempo:4317
+      endpoint: http://tempo.monitoring.svc.cluster.local:4317
       tls:
         insecure: true
 
   service:
     pipelines:
       traces:
-        receivers: [otlp]
-        processors: [batch]
-        exporters: [otlp/tempo]
-      metrics:
-        receivers: [otlp, prometheus]
-        processors: [batch]
-        exporters: [prometheus]
-      logs:
-        receivers: [otlp]
-        processors: [batch]
-        exporters: [loki]
+        receivers:
+          - otlp
+#        processors:
+#          - batch
+        exporters:
+          - otlp/tempo
+      metrics: null
+      logs: null
 
 ports:
-  otlp:
-    enabled: true
-    containerPort: 4317
-    servicePort: 4317
-    protocol: TCP
-  otlp-http:
-    enabled: true
-    containerPort: 4318
-    servicePort: 4318
-    protocol: TCP
-  prometheus:
-    enabled: true
-    containerPort: 8889
-    servicePort: 8889
-    protocol: TCP
+  jaeger-compact:
+    enabled: false
+  jaeger-thrift:
+    enabled: false
+  jaeger-grpc:
+    enabled: false
+  zipkin:
+    enabled: false

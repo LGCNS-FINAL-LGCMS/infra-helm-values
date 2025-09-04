@@ -1,5 +1,6 @@
 deployment:
   replicas: 1
+  service_type: NodePort
   resources:
     requests:
       memory: 64Mi
@@ -13,15 +14,26 @@ auth:
 
 external_services:
   prometheus:
-    url: http://prometheus-operated:9090
+    url: http://prometheus-operated.monitoring.svc.cluster.local:9090
   grafana:
     enabled: true
-    url: http://prometheus-stack-grafana:3000
+    in_cluster_url: http://prometheus-stack-grafana.monitoring.svc.cluster.local:3000
+    auth:
+      type: basic
+      username: lgcms
+      password: lgcms-passworld
+    health_check_url: http://prometheus-grafana.monitoring.svc.cluster.local:3000/api/health
+
   tracing:
     enabled: true
-    url: http://tempo:3200
-
-server:
-  web_fqdn: ""
-  web_port: 20001
-  web_root: /kiali
+    provider: tempo
+    internal_url: http://tempo.monitoring.svc.cluster.local:3200
+    use_grpc: false
+    tempo_config:
+      org_id: "1"
+      datasource_uid: ""
+      url_format: "grafana"
+      cache_enabled: true
+      cache_capacity: 200
+      query_timeout: 5
+      namespace_selector: true

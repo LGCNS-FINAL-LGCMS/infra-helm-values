@@ -15,11 +15,24 @@ config:
           host: valkey-auth-external-service
           port: 6379
           database: 0
+    otel:
+      propagators:
+        - tracecontext
+        - b3
+        - baggage
     management:
+      otlp:
+        tracing:
+          endpoint: http://otel-collector-opentelemetry-collector.monitoring.svc.cluster.local:4317
+          transport: grpc
       endpoints:
         web:
           exposure:
             include: prometheus,health,info
-    metrics:
-      tags:
-        application: ${spring.application.name}
+      metrics:
+        tags:
+          application: ${spring.application.name}
+      tracing:
+        sampling:
+          probability: 1.0
+        enabled: true
