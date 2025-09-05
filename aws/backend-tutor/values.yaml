@@ -1,0 +1,31 @@
+name: backend-tutor
+namespace: backend
+replicas: 1
+springContainer:
+  image: ghcr.io/lgcns-final-lgcms/tutor_bot
+  version: 0.3
+  profile: dev
+  imagePullPolicy: Always
+  resources:
+    enabled: false
+    requests:
+      cpu: "100m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+  aws:
+    region: "ap-northeast-2"
+service:
+  type: NodePort
+  port: 8080
+hpa:
+  enabled: false
+  cpu:
+    enabled: true
+  memory:
+    enabled: true
+  behavior:
+    enabled: true
+monitor:
+  enabled: true

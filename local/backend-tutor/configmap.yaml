@@ -1,0 +1,109 @@
+config:
+  enable: true
+  configData: |
+    server:
+      port: 8080
+    
+    spring:
+      application:
+        name: backend-tutor
+      data:
+        redis:
+          host: valkey-tutor-external-service
+          port: 6379
+          database: 1
+    
+      datasource:
+        url: jdbc:postgresql://postgres-tutor-external-service:5432/tutor?serverTimezone=UTC&useSSL=true&autoReconnect=true&useUnicode=true&characterEncoding=utf-8
+        username: lgcms
+        password: 1234
+        driver-class-name: org.postgresql.Driver
+        hikari:
+          connection-test-query: SELECT 1
+          validation-timeout: 5000
+    
+      jpa:
+        hibernate:
+          ddl-auto: update
+        generate-ddl: true
+        show-sql: true
+        open-in-view: false
+    
+      kafka:
+        bootstrap-servers: kafka-external-service:9094
+    
+        listener:
+          ack-mode: manual_immediate
+    
+        consumer:
+          group-id: ${spring.application.name}
+          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+          enable-auto-commit: false
+          auto-offset-reset: latest
+          max-poll-records: 10
+          properties:
+            spring.json.trusted.packages: "*"
+            spring.json.use.type.headers: false
+    
+        producer:
+          key-serializer: org.apache.kafka.common.serialization.StringSerializer
+          value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+          properties:
+            spring.json.add.type.headers: false
+    
+      cloud:
+        openfeign:
+          client:
+            config:
+              RemoteLectureService:
+                url: http://backend-lecture:8080
+      ai:
+        bedrock:
+          aws:
+            region: ap-northeast-2
+          titan:
+            embedding:
+              model: amazon.titan-embed-text-v2:0
+              input-type: text
+          converse:
+            chat:
+              options:
+                model: "anthropic.claude-3-haiku-20240307-v1:0"
+                max-tokens: 1024
+                temperature: 0.3
+                search:
+                  similarity-threshold: 0.6
+        chat:
+          memory:
+            redis:
+              enabled: true
+              options:
+                capacity: 10
+              key-prefix: "lecture_user="
+              time-to-live: "2h"
+        model:
+          embedding: bedrock-titan
+          chat: bedrock-converse
+        vectorstore:
+          pgvector:
+            index-type: HNSW
+            distance-type: COSINE_DISTANCE
+            initialize-schema: true
+            table-name: tutor_bot_embedded_q
+            dimensions: 1024
+    
+      batch:
+        job:
+          enabled: false
+        jdbc:
+          initialize-schema: always
+          schema: classpath:org/springframework/batch/core/schema-postgresql.sql
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: prometheus,health,info
+    metrics:
+      tags:
+        application: ${spring.application.name}
