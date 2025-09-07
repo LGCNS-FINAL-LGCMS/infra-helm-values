@@ -1,9 +1,9 @@
 name: backend-notification
 namespace: backend
-replicas: 3
+replicas: 2
 springContainer:
   image: ghcr.io/lgcns-final-lgcms/notification
-  version: 0.1
+  version: 0.3
   profile: dev
   imagePullPolicy: Always
   resources:

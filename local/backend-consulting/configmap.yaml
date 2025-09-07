@@ -11,7 +11,6 @@ config:
         redis:
           host: valkey-consulting-external-service
           port: 6379
-          database: 7
           database-lock: 7
           config:
             connectionPoolSize: 10
@@ -64,14 +63,14 @@ config:
           key-serializer: org.apache.kafka.common.serialization.StringSerializer
           value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
           properties:
-            spring.json.add.type.headers: false
-    
-      cloud:
-        openfeign:
-          client:
-            config:
-              RemoteLectureService:
-                url: http://backend-lecture:8080
+              spring.json.add.type.headers: false
+      
+        cloud:
+          openfeign:
+            client:
+              config:
+                RemoteLectureService:
+                  url: http://backend-lecture:8080
       ai:
         bedrock:
           aws:

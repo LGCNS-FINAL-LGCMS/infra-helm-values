@@ -23,6 +23,19 @@ config:
         properties:
           hibernate:
             format_sql: true
+      data:
+        redis:
+          host: valkey-guide-external-service
+          port: 6379
+          database-lock: 7
+          config:
+            connectionPoolSize: 10
+            connectionMinimumIdleSize: 5
+            subscriptionConnectionPoolSize: 5
+            subscriptionConnectionMinimumIdleSize: 1
+            idleConnectionTimeout: 30000
+            connectTimeout: 30000
+            timeout: 3000
       ai:
         model:
           embedding: bedrock-titan

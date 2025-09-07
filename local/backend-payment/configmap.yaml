@@ -29,6 +29,7 @@ config:
         redis:
           host: valkey-payment-external-service
           port: 6379
+          database: 14
 
       kafka:
         bootstrap-servers: kafka-external-service:9094
