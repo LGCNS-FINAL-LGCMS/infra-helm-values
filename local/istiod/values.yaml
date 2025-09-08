@@ -10,6 +10,10 @@ meshConfig:
       opentelemetry:
         port: 4317
         service: otel-collector-opentelemetry-collector.monitoring.svc.cluster.local
+    - name: prometheus
+      prometheus: {}
   defaultProviders:
     tracing:
       - tempo-otel
+    metrics:
+      - prometheus
