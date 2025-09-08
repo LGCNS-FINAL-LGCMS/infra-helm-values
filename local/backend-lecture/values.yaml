@@ -3,7 +3,7 @@ namespace: backend
 replicas: 1
 springContainer:
   image: ghcr.io/lgcns-final-lgcms/lecture
-  version: 0.5
+  version: 0.7
   profile: dev
   imagePullPolicy: Always
   resources:
