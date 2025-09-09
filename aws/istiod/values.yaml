@@ -1,3 +1,19 @@
 meshConfig:
+  defaultConfig:
+    tracing:
+      sampling: 100.0
   accessLogFile: "/dev/stdout"
-  accessLogEncoding: 'TEXT'
+  accessLogEncoding: JSON
+  enableTracing: true
+  extensionProviders:
+    - name: tempo-otel
+      opentelemetry:
+        port: 4317
+        service: otel-collector-opentelemetry-collector.monitoring.svc.cluster.local
+    - name: prometheus
+      prometheus: {}
+  defaultProviders:
+    tracing:
+      - tempo-otel
+    metrics:
+      - prometheus

@@ -1,0 +1,30 @@
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: tempo
+  namespace: istio-system
+spec:
+  tracing:
+    - providers:
+        - name: tempo-otel
+      randomSamplingPercentage: 100.0
+---
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: prometheus-metrics
+  namespace: istio-system
+spec:
+  metrics:
+    - providers:
+        - name: prometheus
+      overrides:
+        - match:
+            metric: REQUEST_COUNT
+          disabled: false
+        - match:
+            metric: REQUEST_DURATION
+          disabled: false
+        - match:
+            metric: TCP_OPENED
+          disabled: false

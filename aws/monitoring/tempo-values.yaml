@@ -1,0 +1,23 @@
+tempo:
+  repository: grafana/tempo
+  tag: 2.3.0
+
+persistence:
+  enabled: true
+  storageClassName: gp3
+  size: 10Gi
+  accessModes:
+    - ReadWriteOnce
+securityContext:
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
+  runAsNonRoot: true
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 100m
+#  limits:
+#    memory: 512Mi
+#    cpu: 300m

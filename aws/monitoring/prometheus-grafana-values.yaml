@@ -1,0 +1,169 @@
+prometheus:
+  prometheusSpec:
+    replicas: 1
+    retention: 7d
+    scrapeInterval: 30s
+    evaluationInterval: 30s
+    additionalScrapeConfigs:
+      # istiod 메트릭 수집
+      - job_name: 'istiod'
+        kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+                - istio-system
+        relabel_configs:
+          # istiod 서비스의 endpoints만 유지
+          - source_labels: [ __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name ]
+            action: keep
+            regex: istiod;http-monitoring
+
+      # istio 사이드카 메트릭 수집
+      - job_name: 'istio-proxy'
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          # istio 사이드카가 주입된 파드만 유지 sidecar.istio.io/status 어노테이션 존재 여부로 판단
+          - source_labels: [__meta_kubernetes_pod_annotation_sidecar_istio_io_status]
+            regex: '.*'
+            action: keep
+          # 파드의 prometheus.io/scrape 어노테이션이 true인 것만 유지
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          # 파드의 prometheus.io/port 어노테이션에서 포트 정보 추출
+          - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+            action: replace
+            target_label: __address__
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            # 파드의 prometheus.io/path 어노테이션에서 메트릭 경로 추출
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+        metric_relabel_configs:
+          # istio 메트릭만 유지
+          - source_labels: [__name__]
+            regex: 'istio_.*'
+            action: keep
+
+    # 프로메테우스 스토리지 설정
+#    storageSpec:
+#      volumeClaimTemplate:
+#        spec:
+#          storageClassName: gp2
+#          resources:
+#            requests:
+#              storage: 20Gi
+
+    resources:
+      requests:
+        memory: 512Mi
+        cpu: 100m
+      limits:
+        memory: 2Gi
+        cpu: 1000m
+
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {}
+    serviceMonitorSelector: {}
+    podMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelector: {}
+
+#      matchLabels:
+#        release: "prometheus"
+
+grafana:
+  enabled: true
+  resources:
+    requests:
+      memory: 128Mi
+      cpu: 100m
+    limits:
+      memory: 512Mi
+      cpu: 500m
+
+  # 그라파나 스토리지 설정
+#  persistence:
+#    enabled: true
+#    type: pvc
+#    storageClassName: gp2
+#    size: 10Gi
+
+  adminUser: "lgcms"
+  adminPassword: "lgcms-passworld"
+
+  # Loki, Tempo 데이터소스 설정
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki:3100
+      jsonData:
+        maxLines: 1000
+        httpHeaderName1: "X-Scope-OrgID"
+      secureJsonData:
+        httpHeaderValue1: "lgcms-tenant"
+
+    - name: Tempo
+      type: tempo
+      url: http://tempo:3200
+      jsonData:
+        tracesToLogs:
+          datasourceUid: "loki"
+
+
+  # 대시보드 자동 임포트 비활성화
+  sidecar:
+    dashboards:
+      enabled: true
+      searchNamespace: ALL
+      folderAnnotation: grafana_folder
+      provider:
+        foldersFromFilesStructure: true
+    datasources:
+      enabled: true
+      searchNamespace: ALL
+
+  imageRenderer:
+    enabled: false
+
+# Alertmanager 비활성화
+alertmanager:
+  enabled: false
+
+# Node Exporter 설정
+prometheus-node-exporter:
+  enabled: true
+  hostRootfs: true
+  resources:
+    requests:
+      memory: 30Mi
+      cpu: 100m
+    limits:
+      memory: 50Mi
+      cpu: 200m
+
+# Kube State Metrics 설정
+kube-state-metrics:
+  enabled: true
+  resources:
+    requests:
+      memory: 32Mi
+      cpu: 100m
+    limits:
+      memory: 64Mi
+      cpu: 200m
+
+kubeControllerManager:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeProxy:
+  enabled: false
+
+# 기본 알림 룰 비활성화
+defaultRules:
+  create: false
