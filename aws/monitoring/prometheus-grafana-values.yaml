@@ -49,13 +49,18 @@ prometheus:
             action: keep
 
     # 프로메테우스 스토리지 설정
-#    storageSpec:
-#      volumeClaimTemplate:
-#        spec:
-#          storageClassName: gp2
-#          resources:
-#            requests:
-#              storage: 20Gi
+    storageSpec:
+      volumeClaimTemplate:
+        metadata:
+          name: prometheus-db
+        spec:
+          storageClassName: ""
+          resources:
+            requests:
+              storage: 20Gi
+          selector:
+            matchLabels:
+              name: prometheus-pv
 
     resources:
       requests:
@@ -85,11 +90,16 @@ grafana:
       cpu: 500m
 
   # 그라파나 스토리지 설정
-#  persistence:
-#    enabled: true
-#    type: pvc
-#    storageClassName: gp2
-#    size: 10Gi
+  persistence:
+    enabled: true
+    spec:
+      storageClassName: ""
+      resources:
+        requests:
+          storage: 20Gi
+      selector:
+        matchLabels:
+          name: grafana-pv
 
   adminUser: "lgcms"
   adminPassword: "lgcms-passworld"

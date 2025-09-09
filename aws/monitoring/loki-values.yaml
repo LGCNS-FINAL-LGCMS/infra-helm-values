@@ -5,7 +5,7 @@ loki:
   commonConfig:
     replication_factor: 1
   storage:
-    type: 'gp3'
+    type: 'filesystem'
   schemaConfig:
     configs:
       - from: "2024-01-01"
@@ -25,10 +25,13 @@ singleBinary:
     limits:
       memory: 512Mi
       cpu: 300m
-#  persistence:
-#    enabled: true
-#    storageClass: gp2
-#    size: 10Gi
+  persistence:
+    enabled: true
+    storageClass: ""
+    size: 20Gi
+    selector:
+      matchLabels:
+        name: loki-pv
 
 read:
   replicas: 0

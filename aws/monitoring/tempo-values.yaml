@@ -4,10 +4,11 @@ tempo:
 
 persistence:
   enabled: true
-  storageClassName: gp3
-  size: 10Gi
-  accessModes:
-    - ReadWriteOnce
+  storageClassName: ""
+  size: 20Gi
+  selector:
+    matchLabels:
+      name: tempo-pv
 securityContext:
   runAsUser: 10001
   runAsGroup: 10001
