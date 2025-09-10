@@ -1,0 +1,49 @@
+executor: KubernetesExecutor
+
+fernetKey: "n8fIaUeinQBmzzUlEfWYQBokTweKIkn7pyCt67eCMzE="
+
+env:
+  - name: AIRFLOW_CONN_SPRING_BOOT_API
+    value: http://backend-consulting.backend.svc.cluster.local:8080
+
+postgresql:
+  enabled: false
+
+data:
+  metadataConnection:
+    user: lgcms
+    pass: lgcms-1234
+    protocol: postgresql
+    host: airflow-postgres-external-service
+    port: 5432
+    db: airflow
+    sslmode: require
+
+redis:
+  enabled: false
+
+migrateDatabaseJob:
+  useHelmHooks: false
+  applyCustomEnv: false
+
+createUserJob:
+  useHelmHooks: false
+  applyCustomEnv: false
+
+dags:
+  gitSync:
+    enabled: true
+    repo: https://github.com/LGCNS-FINAL-LGCMS/backend-airflow.git
+    branch: main
+    rev: HEAD
+    depth: 1
+    maxFailures: 0
+    subPath: "dags"
+    wait: 60
+    containerName: git-sync
+    uid: 65533
+
+triggerer:
+  enabled: true
+  persistence:
+    enabled: false
