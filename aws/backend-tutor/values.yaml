@@ -10,10 +10,10 @@ springContainer:
     enabled: true
     requests:
       cpu: "100m"
-      memory: "512Mi"
+      memory: "1Gi"
     limits:
       cpu: "500m"
-      memory: "1Gi"
+      memory: "2Gi"
   aws:
     region: "ap-northeast-2"
 service:

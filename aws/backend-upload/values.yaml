@@ -10,10 +10,10 @@ springContainer:
     enabled: true
     requests:
       cpu: "250m"
-      memory: "512Mi"
+      memory: "1Gi"
     limits:
       cpu: "500m"
-      memory: "1Gi"
+      memory: "2Gi"
 service:
   type: NodePort
   port: 8080
