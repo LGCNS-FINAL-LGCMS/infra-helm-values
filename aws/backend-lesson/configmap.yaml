@@ -5,6 +5,9 @@ config:
       port: 8080
 
     spring:
+      threads:
+        virtual:
+          enabled: true
       application:
         name: backend-lesson
 
