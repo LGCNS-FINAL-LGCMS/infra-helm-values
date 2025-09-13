@@ -7,7 +7,7 @@ springContainer:
   profile: dev
   imagePullPolicy: Always
   resources:
-    enabled: false
+    enabled: true
     requests:
       cpu: "100m"
       memory: "512Mi"
@@ -27,3 +27,5 @@ hpa:
     enabled: true
 monitor:
   enabled: true
+subsets:
+  - name: blue

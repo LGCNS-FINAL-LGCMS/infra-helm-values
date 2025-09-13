@@ -50,6 +50,8 @@ prometheus:
           - source_labels: [__name__]
             regex: 'istio_.*'
             action: keep
+    annotations:
+      sidecar.istio.io/inject: "true"
 
     # 프로메테우스 스토리지 설정
 #    storageSpec:

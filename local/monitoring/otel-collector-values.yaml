@@ -47,11 +47,11 @@ config:
     jaeger: null
     prometheus: null
     zipkin: null
-  processors: {}
-#    batch: # {}
-#      send_batch_size: 100
-#      timeout: 50ms
-#      send_batch_max_size: 500
+  processors: { }
+  #    batch: # {}
+  #      send_batch_size: 100
+  #      timeout: 50ms
+  #      send_batch_max_size: 500
 
   exporters:
     otlp/tempo:
@@ -80,3 +80,5 @@ ports:
     enabled: false
   zipkin:
     enabled: false
+podAnnotations:
+  sidecar.istio.io/inject: "true"
